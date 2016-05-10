@@ -1,0 +1,24 @@
+.DS_Store
+/*/.DS_Store
+/*/**/.DS_Store
+.idea/*
+/app/bootstrap.php.cache
+/app/cache/*
+!app/cache/.gitkeep
+/app/config/parameters.yml
+/app/logs/*
+!app/logs/.gitkeep
+/app/phpunit.xml
+/bin/doctrine
+/bin/doctrine-migrations
+/bin/doctrine.php
+/composer.phar
+/vendor/
+/web/bundles/
+/inte/bower_components/
+/inte/node_modules/
+
+
+# Vagrant
+/html/
+.vagrant/
