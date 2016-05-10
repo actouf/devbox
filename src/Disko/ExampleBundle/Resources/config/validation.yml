@@ -1,0 +1,23 @@
+Disko\ExampleBundle\Entity\Example:
+    properties:
+        name:
+            - NotBlank:
+                message: "Le champs est requis"
+
+            - Length:
+                min: 2
+                max: 255
+                minMessage: "La valeur du champs est trop courte (min: 2)"
+                maxMessage: "La valeur du est trop longue (max: 255)"
+
+        description:
+            - Length:
+                min: 2
+                max: 200
+                minMessage: "La valeur du champs est trop courte (min: 2)"
+                maxMessage: "La valeur du est trop longue (max: 200)"
+
+        fileKeyword:
+            - Image:
+                maxSize: 500k
+                uploadIniSizeErrorMessage: "Cette image est trop lourde (max: {{ limit }}{{ suffix }})"

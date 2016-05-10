@@ -1,0 +1,19 @@
+admin_user_list:
+    pattern:  /liste
+    defaults: { _controller: AdminBundle:User:list }
+
+admin_user_create:
+    pattern:  /creation
+    defaults: { _controller: AdminBundle:User:create }
+
+admin_user_edit:
+    pattern:  /modification/{id}
+    defaults: { _controller: AdminBundle:User:edit }
+
+admin_user_delete:
+    pattern:  /suppression/{id}
+    defaults: { _controller: AdminBundle:User:delete }
+
+admin_user_export:
+    pattern:  /export
+    defaults: { _controller: AdminBundle:User:export }

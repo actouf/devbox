@@ -1,0 +1,115 @@
+Disko\UserBundle\Entity\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+    properties:
+        civility:
+            - NotBlank:
+                message: "Le champs est requis"
+                groups: [Admin, Registration, Profile]
+
+        firstName:
+            - NotBlank:
+                message: "Le champs est requis"
+                groups: [Admin, Registration, Profile]
+
+            - Length:
+                min: 2
+                max: 255
+                minMessage: "La valeur du champs est trop courte (min: 2)"
+                maxMessage: "La valeur du est trop longue (max: 255)"
+                groups: [Admin, Registration, Profile]
+
+        lastName:
+            - NotBlank:
+                message: "Le champs est requis"
+                groups: [Admin, Registration, Profile]
+
+            - Length:
+                min: 2
+                max: 255
+                minMessage: "La valeur du champs est trop courte (min: 2)"
+                maxMessage: "La valeur du est trop longue (max: 255)"
+                groups: [Admin, Registration, Profile]
+
+        birthday:
+            - NotBlank:
+                message: "Le champs est requis"
+                groups: [Admin, Registration, Profile]
+
+            - DateTime:
+                message: "form.general.invalid.date"
+                groups: [Admin, Registration, Profile]
+
+        email:
+            - NotBlank:
+                message: "Le champs est requis"
+                groups: [Admin, Registration, Profile]
+
+            - Email:
+                message: "{{ value }} est invalide."
+                checkMX: true
+                groups: [Admin, Registration, Profile]
+
+        fileAvatar:
+            - Image:
+                maxSize: 10Mi
+                uploadIniSizeErrorMessage: "Cette image est trop lourde (max: {{ limit }}{{ suffix }})"
+        localisations:
+            - Valid: ~
+
+Disko\UserBundle\Entity\Localisation:
+    properties:
+        title:
+            - NotBlank:
+                message: "Le champs est requis"
+            - Length:
+                min: 1
+                max: 255
+                minMessage: "La valeur du champs est trop courte (min: 1)"
+                maxMessage: "La valeur du est trop longue (max: 255)"
+        address:
+            - NotBlank:
+                message: "Le champs est requis"
+            - Length:
+                min: 1
+                max: 255
+                minMessage: "La valeur du champs est trop courte (min: 1)"
+                maxMessage: "La valeur du est trop longue (max: 255)"
+
+        addressMore:
+            - Length:
+                min: 1
+                max: 255
+                minMessage: "La valeur du champs est trop courte (min: 1)"
+                maxMessage: "La valeur du est trop longue (max: 255)"
+
+
+        code:
+            - NotBlank:
+                message: "Le champs est requis"
+            - Length:
+                min: 1
+                max: 20
+                minMessage: "La valeur du champs est trop courte (min: 1)"
+                maxMessage: "La valeur du est trop longue (max: 20)"
+
+        country:
+            - NotBlank:
+                message: "Le champs est requis"
+
+        phone:
+            - NotBlank:
+                message: "Le champs est requis"
+            - Length:
+                min: 1
+                max: 255
+                minMessage: "La valeur du champs est trop courte (min: 1)"
+                maxMessage: "La valeur du est trop longue (max: 255)"
+        city:
+            - NotBlank:
+                message: "Le champs est requis"
+            - Length:
+                min: 1
+                max: 255
+                minMessage: "La valeur du champs est trop courte (min: 1)"
+                maxMessage: "La valeur du est trop longue (max: 255)"

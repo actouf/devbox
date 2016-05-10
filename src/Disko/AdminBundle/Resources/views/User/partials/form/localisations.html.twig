@@ -1,0 +1,53 @@
+<div class="localisations" data-prototype="{% filter escape %}{% include 'AdminBundle:User/partials/prototype:localisations.html.twig' with {'form': form.localisations.vars.prototype} %}{% endfilter %}">
+    {% for localisation in form.localisations %}
+        <div class="well" style="display: inline-block; width: 100%; margin-left: 5px; vertical-align: top; padding: 19px 0 0 0;">
+            {% include 'AdminBundle:User/partials/prototype:localisations.html.twig' with {'form': localisation} %}
+        </div>
+    {% endfor %}
+</div>
+
+<script>
+    // Récupère le div qui contient la collection de tags
+    var baseLocalisation = 'div.localisations';
+    var collectionHolderLocalisation = $(baseLocalisation);
+    var cptLocalisation = collectionHolderLocalisation.find('.well').length;
+
+    // ajoute un lien « add a tag »
+    var $addLinkLocalisation = $('<hr/><div style="text-align: center;"><a href="#" class="btn btn-success"><i class="fa fa-plus pull-left"></i> Ajouter une nouvelle adresse</a></div>');
+    var $newLinkLiLocalisation = $('<div></div>').append($addLinkLocalisation);
+
+    $(document).ready(function() {
+        $(baseLocalisation + ' > div').each(function() {
+            addFormLocalisationDeleteLink($(this));
+        });
+
+        collectionHolderLocalisation.append($newLinkLiLocalisation);
+
+        $addLinkLocalisation.on('click', function(e) {
+            e.preventDefault();
+            addFormLocalisation(collectionHolderLocalisation, $newLinkLiLocalisation);
+
+            reloadPlugins();
+
+        });
+    });
+
+    function addFormLocalisation(collectionHolderLocalisation, $newLinkLiLocalisation) {
+        var prototype = collectionHolderLocalisation.attr('data-prototype');
+        var newForm = prototype.replace(/__name__/g, cptLocalisation);
+        cptLocalisation++;
+        var $newFormLi = $('<div class="well"  style="display: inline-block; width: 100%; margin-left: 5px; vertical-align: top; padding: 19px 0 0 0;"></div>').append(newForm);
+        $newLinkLiLocalisation.before($newFormLi);
+        addFormLocalisationDeleteLink($newFormLi);
+    }
+
+    function addFormLocalisationDeleteLink($formLi) {
+        var $removeFormA = $('<div style="display: inline-block;><a href="#" class="btn btn-danger"><i class="fa fa-trash-o pull-left"></i> Supprimer</a></div>');
+        $formLi.find('.form-group-master').append($removeFormA);
+
+        $removeFormA.on('click', function(e) {
+            e.preventDefault();
+            $formLi.remove();
+        });
+    }
+</script>

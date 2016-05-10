@@ -1,0 +1,11 @@
+admin_homepage:
+    pattern:  /
+    defaults: { _controller: AdminBundle:Home:index }
+
+User:
+    resource: "@AdminBundle/Resources/config/routing/user.yml"
+    prefix:   /utilisateurs
+
+Example:
+    resource: "@AdminBundle/Resources/config/routing/example.yml"
+    prefix:   /exemples

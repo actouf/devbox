@@ -1,0 +1,19 @@
+{% extends "FrontBundle::layout.html.twig" %}
+
+
+{% block content %}
+    Front homepage
+
+    <p>
+        <a href="{{ path('fos_user_security_login') }}">Se connecter</a>
+    </p>
+    {% if is_granted('ROLE_ADMIN') %}
+
+        <p>
+            <a href="{{ path('admin_homepage') }}">Administration</a>
+        </p>
+        <p>
+            <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+        </p>
+    {% endif %}
+{% endblock %}

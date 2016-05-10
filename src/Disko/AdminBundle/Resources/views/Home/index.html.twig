@@ -1,0 +1,54 @@
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% set menuActive = 'dashboard' %}
+
+{% block mainTitle 'Tableau de bord' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="stat-panel panel panel-inverse">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <i class="fa fa-users"></i> Nombre d'inscrits / semaine
+                    </h4>
+                </div>
+                <div class="stat-row bg-primary">
+                    <div class="stat-cell col-sm-12 bg-primary valign-middle">
+                        <div id="hero-graph" class="graph" style="height: 230px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+        var uploads_data = [
+            {% for subscribe in subscribes %}
+            { e: '{{ subscribe.semaine }}', v: '{{ subscribe.nb }}' }{% if not loop.last %},{% endif %}
+            {% endfor %}
+        ];
+        Morris.Line({
+            element: 'hero-graph',
+            data: uploads_data,
+            parseTime: false,
+            xkey: 'e',
+            ykeys: ['v'],
+            labels: ['Inscrits'],
+            lineColors: ['#fff'],
+            lineWidth: 1,
+            pointSize: 2,
+            gridLineColor: 'rgba(255,255,255,.5)',
+            resize: true,
+            gridTextColor: '#fff',
+            xLabels: "week",
+            xLabelFormat: function (x) { return 'Semaine ' + x.label; },
+            labels: ['Nombre', 'Semaine']
+        });
+    </script>
+{% endblock %}

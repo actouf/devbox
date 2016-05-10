@@ -1,0 +1,15 @@
+parameters:
+
+    # Services Class
+    dk.example.class:        Disko\ExampleBundle\Services\ExampleService
+
+    # Entities Class
+    dk.entity.example.class: Disko\ExampleBundle\Entity\Example
+    
+services:
+
+    dk.example:
+        class: %dk.example.class%
+        calls:
+            - [ setEntityManager, [ "@doctrine.orm.entity_manager" ] ]
+            - [ addRepository, [ exampleRepository, %dk.entity.example.class% ] ]

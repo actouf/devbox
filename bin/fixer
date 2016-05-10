@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo php-cs-fixer self-update
+php php-cs-fixer.phar fix src/

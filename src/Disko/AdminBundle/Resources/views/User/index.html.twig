@@ -1,0 +1,161 @@
+{% set navbarActive = 'users' %}
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block mainTitle 'Liste des utilisateurs' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-9 col-sm-12">
+
+            <!-- Primary table -->
+            <div class="table-primary">
+                <div class="table-header">
+                    <div class="table-caption">
+                        Utilisateurs
+                    </div>
+                </div>
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th class="cansort {% if pagination.isSorted('u.id') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, '#', 'u.id') }} {% if pagination.isSorted('u.id') %} <i class="fa fa-sort-{{ pagination.getDirection() }} pull-right"></i>{% endif %}</th>
+                            <th>Photo</th>
+                            <th class="cansort {% if pagination.isSorted('u.firstName') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Prénom', 'u.firstName') }} {% if pagination.isSorted('u.firstName') %} <i class="fa fa-sort-{{ pagination.getDirection() }} pull-right"></i>{% endif %}</th>
+                            <th class="cansort {% if pagination.isSorted('u.lastName') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Nom', 'u.lastName') }} {% if pagination.isSorted('u.lastName') %} <i class="fa fa-sort-{{ pagination.getDirection() }} pull-right"></i>{% endif %}</th>
+                            <th class="cansort {% if pagination.isSorted('u.email') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'E-mail', 'u.email') }} {% if pagination.isSorted('u.email') %} <i class="fa fa-sort-{{ pagination.getDirection() }} pull-right"></i>{% endif %}</th>
+                            <th class="cansort {% if pagination.isSorted('u.created') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Créé le', 'u.created') }} {% if pagination.isSorted('u.created') %} <i class="fa fa-sort-{{ pagination.getDirection() }} pull-right"></i>{% endif %}</th>
+                            <th class="cansort {% if pagination.isSorted('u.enabled') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Activé', 'u.enabled') }} {% if pagination.isSorted('u.enabled') %} <i class="fa fa-sort-{{ pagination.getDirection() }} pull-right"></i>{% endif %}</th>
+                            <th class="cansort {% if pagination.isSorted('u.locked') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Bloqué', 'u.locked') }} {% if pagination.isSorted('u.locked') %} <i class="fa fa-sort-{{ pagination.getDirection() }} pull-right"></i>{% endif %}</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for user in pagination %}
+                            <tr>
+                                <td style="vertical-align:middle;">{{ user.id }}</td>
+                                <td width="100" style="text-align: center;">
+                                    {% if user.pathAvatar is not empty %}
+                                        <img style="max-width: 50px; max-height: 50px;" src="{{ asset(user.getWebPath('avatar')) }}" />
+                                    {% else %}
+                                        <img style="max-width: 50px; max-height: 50px;" src="{{ asset("bundles/admin/images/pixel-admin/noimage.jpg") }}" />
+                                    {% endif %}
+                                </td>
+                                <td style="vertical-align:middle;"><a href="{{ path('admin_user_edit', {'id': user.id}) }}">{{ user.firstName }}</a></td>
+                                <td style="vertical-align:middle;"><a href="{{ path('admin_user_edit', {'id': user.id}) }}">{{ user.lastName }}</a></td>
+                                <td style="vertical-align:middle;"><a href="{{ path('admin_user_edit', {'id': user.id}) }}">{{ user.email }}</a></td>
+                                <td style="vertical-align:middle;">{{ user.created|date("m/d/Y", "Europe/Paris") }}</td>
+                                <td style="text-align:center;vertical-align:middle;">{% if user.enabled %}<i class="fa fa-check text-success"></i>{% else %}<i class="fa fa-times text-danger"></i>{% endif %}</td>
+                                <td style="text-align:center;vertical-align:middle;">{% if user.locked %}<i class="fa fa-check text-success"></i>{% else %}<i class="fa fa-times text-danger"></i>{% endif %}</td>
+                                <td style="width: 100px;text-align:center;vertical-align:middle;">
+
+                                    <a title="Modifier" href="{{ path('admin_user_edit', {'id': user.id}) }}" class="btn btn-xs btn-default">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+
+                                    <a title="Supprimer" href="{{ path('admin_user_delete', {'id': user.id}) }}" class="btn btn-xs btn-danger delete-button">
+                                        <i class="fa fa-trash-o" style="color:white;transition: all 30s linear;"></i>
+                                    </a>
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="table-footer">
+                    {% if pagination|length <= 0 %}
+                        <p>Aucun résultat trouvé.</p>
+                    {% endif %}
+
+                    <div class="navigation">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-12">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <p>
+                        <a class="btn btn-success btn-block" href="{{ path('admin_user_create') }}">
+                            <i class="fa fa-plus pull-left"></i> Nouvel utilisateur
+                        </a>
+                    </p>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <p>
+                        <a class="btn btn-warning btn-block" href="{{ path('admin_user_export') }}">
+                            <i class="fa fa-download pull-left"></i> Exporter la liste (CSV)
+                        </a>
+                    </p>
+                </div>
+
+                <div class="col-md-12 col-sm-12">
+                    <div class="panel panel-inverse">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <i class="fa fa-search"></i> Recherche
+                            </h4>
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                <i class="fa fa-question-circle fa-3x pull-left"></i>
+                                Pour rechercher un utlisateur, remplissez un des critères ci-dessous et lancez la recherche.
+                            </p>
+
+                            {% include "AdminBundle:User/partials:searchList.html.twig" %}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12 col-sm-12">
+
+                    <div class="stat-panel panel panel-inverse">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <i class="fa fa-users"></i> Nombre d'inscrits / semaine
+                            </h4>
+                        </div>
+                        <div class="stat-row bg-primary">
+                            <div class="stat-cell col-sm-12 bg-primary valign-middle">
+                                <div id="hero-graph" class="graph" style="height: 230px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+        var uploads_data = [
+            {% for subscribe in subscribes %}
+                { e: '{{ subscribe.semaine }}', v: '{{ subscribe.nb }}' }{% if not loop.last %},{% endif %}
+            {% endfor %}
+        ];
+        Morris.Line({
+            element: 'hero-graph',
+            data: uploads_data,
+            parseTime: false,
+            xkey: 'e',
+            ykeys: ['v'],
+            labels: ['Inscrits'],
+            lineColors: ['#fff'],
+            lineWidth: 1,
+            pointSize: 2,
+            gridLineColor: 'rgba(255,255,255,.5)',
+            resize: true,
+            gridTextColor: '#fff',
+            xLabels: "week",
+            xLabelFormat: function (x) { return 'Semaine ' + x.label; },
+            labels: ['Nombre', 'Semaine']
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,19 @@
+admin_example_list:
+    pattern:  /liste
+    defaults: { _controller: AdminBundle:Example:list }
+
+admin_example_create:
+    pattern:  /creation
+    defaults: { _controller: AdminBundle:Example:create }
+
+admin_example_edit:
+    pattern:  /modification/{id}
+    defaults: { _controller: AdminBundle:Example:edit }
+
+admin_example_delete:
+    pattern:  /suppression/{id}
+    defaults: { _controller: AdminBundle:Example:delete }
+
+admin_example_export:
+    pattern:  /export
+    defaults: { _controller: AdminBundle:Example:export }

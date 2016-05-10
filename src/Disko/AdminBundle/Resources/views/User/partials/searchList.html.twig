@@ -1,0 +1,39 @@
+<form action="" class="form-horizontal" method="get" {{ form_enctype(form) }} novalidate >
+    {{ form_errors(form.id) }}
+    <div class="form-group">
+        {{ form_label(form.id, "ID", { 'label_attr': { 'class': 'col-sm-3 control-label' }}) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.id, { 'attr': {'class': 'form-control', 'placeholder': 'Entrez un identifiant'} }) }}
+        </div>
+    </div>
+
+    {{ form_errors(form.firstName) }}
+    <div class="form-group">
+        {{ form_label(form.firstName, "Prénom", { 'label_attr': { 'class': 'col-sm-3 control-label' }}) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.firstName, { 'attr': {'class': 'form-control', 'placeholder': 'Entrez un prénom'} }) }}
+        </div>
+    </div>
+
+    {{ form_errors(form.lastName) }}
+    <div class="form-group">
+        {{ form_label(form.lastName, "Nom", { 'label_attr': { 'class': 'col-sm-3 control-label' }}) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.lastName, { 'attr': {'class': 'form-control', 'placeholder': 'Entrez un nom'} }) }}
+        </div>
+    </div>
+
+    {{ form_errors(form.email) }}
+    <div class="form-group">
+        {{ form_label(form.email, "E-mail", { 'label_attr': { 'class': 'col-sm-3 control-label' }}) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder': 'Entrez un e-mail'} }) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-12" style="text-align: center;">
+            <input class="btn btn-default" type="submit" value="Rechercher">
+        </div>
+    </div>
+</form>

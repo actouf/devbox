@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]>         <html class="ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="ie9 gt-ie8"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="gt-ie8 gt-ie9 not-ie"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Administration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+    <!-- Open Sans font from Google CDN -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin" rel="stylesheet" type="text/css">
+
+    {% block stylesheets %}
+        <!-- Pixel Admin's stylesheets -->
+        <link href="{{ asset('bundles/admin/stylesheets/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('bundles/admin/stylesheets/pixel-admin.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('bundles/admin/stylesheets/widgets.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('bundles/admin/stylesheets/rtl.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('bundles/admin/stylesheets/themes.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('bundles/admin/stylesheets/disko.css') }}" rel="stylesheet" type="text/css">
+    {% endblock %}
+
+    <script src="{{ asset('bundles/admin/javascripts/jquery-2.1.4.min.js') }}"></script>
+    <!--[if lt IE 9]>
+        <script src="{{ asset('bundles/admin/javascripts/ie.min.js') }}"></script>
+    <![endif]-->
+</head>
+
+
+<!-- 1. $BODY ======================================================================================
+
+	Body
+
+	Classes:
+	* 'theme-{THEME NAME}'
+	* 'right-to-left'      - Sets text direction to right-to-left
+	* 'main-menu-right'    - Places the main menu on the right side
+	* 'no-main-menu'       - Hides the main menu
+	* 'main-navbar-fixed'  - Fixes the main navigation
+	* 'main-menu-fixed'    - Fixes the main menu
+	* 'main-menu-animated' - Animate main menu
+-->
+<body class="theme-default main-menu-animated">
+
+    <script>var init = [];</script>
+    <div id="main-wrapper">
+        {% include "AdminBundle:partials:headbar.html.twig" %}
+        {% include "AdminBundle:partials:menu.html.twig" %}
+
+        <div id="content-wrapper">
+
+            {{ wo_render_breadcrumbs() }}
+
+            <div class="page-header">
+                <h1>{% block mainTitle %}{% endblock %}</h1>
+            </div>
+
+
+            {% for flashMessage in app.session.flashbag.get('notice') %}<div class="alert alert-layout alert-success" ><i class="fa fa-check" style="font-size: 25px;position: relative; top: 4px;margin-right: 10px;"></i> {{ flashMessage }}</div>{% endfor %}
+            {% for flashMessage in app.session.flashbag.get('error') %}<div class="alert alert-layout  alert-danger"><i class="fa fa-exclamation" style="font-size: 25px;position: relative; top: 4px;margin-right: 10px;"></i> {{ flashMessage }}</div>{% endfor %}
+
+            {% block content %}{% endblock %}
+        </div>
+
+
+        <div id="main-menu-bg"></div>
+    </div>
+
+    {% block javascripts %}
+
+        <!-- Pixel Admin's javascripts -->
+        <script src="{{ asset('bundles/admin/javascripts/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('bundles/admin/javascripts/pixel-admin.min.js') }}"></script>
+        <script src="{{ asset('bundles/admin/javascripts/disko.js') }}"></script>
+
+        <script type="text/javascript">
+            init.push(function () {
+                {% if menuActive is defined %}
+                    $('#main-menu .navigation li').removeClass('active');
+                    $('#main-menu').find('#nav-' + '{{ menuActive }}').addClass('active');
+                {% endif %}
+            });
+            window.PixelAdmin.start(init);
+
+        </script>
+    {% endblock %}
+
+</body>
+</html>

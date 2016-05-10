@@ -1,0 +1,73 @@
+.cansort a{
+    color: rgba(255,255,255,0.8);
+}
+
+.cansort a:hover{
+    color: rgba(255,255,255,1);
+    text-decoration: none;
+}
+
+.sorted a{
+    color: rgba(255,255,255,1);
+}
+
+.sorted a:hover{
+    color: rgba(255,255,255,1);
+    text-decoration: none;
+}
+
+.sorted .fa-sort-desc{
+    position: relative;
+    top: 7px;
+}
+
+.flash-danger{
+    background: #f8b2b2 !important;
+    color: #e66454 !important;
+}
+
+.jquery-validate-error ul{
+    list-style: none;
+    margin: 5px 0;
+    text-indent: 0;
+    padding: 0;
+}
+
+.help-block-noevol{
+    color: #959595 !important;
+    background: none !important;
+    border: 0px !important;
+}
+
+.help-block-noevol:before{
+    display: none;
+}
+
+.help-block-noevol:after{
+    display: none;
+}
+
+.btn-save{
+    width: 80%;
+    font-weight: bold;
+    padding: 25px 0;
+    font-size: 18px;
+    margin: auto;
+    margin-top: 15px;
+    display: block;
+}
+
+
+.btn-save .fa{
+    margin-right: 15px;
+}
+
+.photoPreview img{
+    padding: 5px;
+    border-radius: 10px;
+    background: #444;
+    border: 5px solid darkgray;
+    min-width: 100px;
+    max-width: 200px;
+    cursor: pointer;
+}

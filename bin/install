@@ -1,0 +1,40 @@
+#!/bin/bash
+gem install sass --version=3.4.9
+export LC_CTYPE="en_US.UTF-8"
+export LANG="en_US.UTF-8"
+sudo cp ./bin/php.ini /etc/php5/fpm/php.ini
+sudo cp ./bin/php.ini /etc/php5/cli/php.ini
+sudo rm /etc/php5/mods-available/zzzz_custom.ini
+sudo /etc/init.d/php5-fpm restart
+sudo apt-get install vim
+
+# Bash rc
+echo "alias vi='vim'" >> ~/.bashrc
+echo "alias mysql='mysql -uroot -proot'" >> ~/.bashrc
+echo "alias ll='ls -l'" >> ~/.bashrc
+echo "alias la='ls -A'" >> ~/.bashrc
+echo "alias l='ls -CF'" >> ~/.bashrc
+
+# Composer
+cp app/config/parameters.yml.dist app/config/parameters.yml
+php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php
+php -r "if (hash('SHA384', file_get_contents('composer-setup.php')) === 'fd26ce67e3b237fffd5e5544b45b0d92c41a4afe3e3f778e942e43ce6be197b9cdc7c251dcde6e2a52297ea269370680') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); }"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+php composer.phar install
+php app/console doctrine:database:create
+php composer.phar install
+
+# Front
+cd inte/ && npm install
+sudo npm install -g gulp
+sudo npm install -g bower
+sudo npm install -g less
+
+# Back
+cd /var/www
+php app/console assets:install
+php app/console doctrine:database:drop --force
+php app/console doctrine:database:create
+php app/console doctrine:schema:update --force
+php app/console doctrine:fixtures:load --no-interaction

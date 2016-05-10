@@ -1,0 +1,19 @@
+{% set menuActive = 'examples' %}
+{% extends "AdminBundle::layout.html.twig" %}
+
+{% block mainTitle "Edition d'un exemple" %}
+
+{% block content %}
+    <form action="" class="form-horizontal" method="post" {{ form_enctype(form) }} novalidate>
+        <div class="row">
+            <div class="col-md-12">
+
+                {% include "AdminBundle:Example/partials:form.html.twig" with {'edit': true} %}
+
+                <button class="btn btn-primary btn-save">
+                    <i class="fa fa-save"></i> Mettre à jour
+                </button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
